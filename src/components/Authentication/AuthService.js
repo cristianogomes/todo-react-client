@@ -1,6 +1,6 @@
 import decode from 'jwt-decode'
 
-export default class AuthService {
+class AuthService {
   constructor (domain) {
     this.domain = domain || 'http://127.0.0.1:3000'
 
@@ -10,7 +10,6 @@ export default class AuthService {
   }
 
   login (email, password) {
-    console.log('chegou aqui', email, password)
     return this.fetch(`${this.domain}/login`, {
       method: 'POST',
       body: JSON.stringify({
@@ -88,3 +87,6 @@ export default class AuthService {
     }
   }
 }
+
+const authService = new AuthService('http://127.0.0.1:3000')
+export default authService

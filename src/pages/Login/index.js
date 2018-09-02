@@ -1,18 +1,17 @@
 import React, { Component } from 'react'
-import AuthService from './AuthService'
+import AuthService from '../../components/Authentication/AuthService'
 
 class Login extends Component {
   constructor () {
     super()
 
-    this.Auth = new AuthService()
     /* bnd */
     this.handleChange = this.handleChange.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
   }
 
   componentWillMount () {
-    if (this.Auth.loggedIn()) {
+    if (AuthService.loggedIn()) {
       this.props.history.replace('/')
     }
   }
@@ -26,7 +25,7 @@ class Login extends Component {
   handleFormSubmit (e) {
     e.preventDefault()
 
-    this.Auth.login(this.state.email, this.state.password).then(res => {
+    AuthService.login(this.state.email, this.state.password).then(res => {
       this.props.history.replace('/')
     }).catch(err => {
       console.log(err)
