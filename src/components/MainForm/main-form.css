@@ -1,0 +1,12 @@
+.main-form {
+  text-align: center;
+  display: block;
+}
+
+.main-form .input {
+  width: 400px;
+}
+
+.main-form .-hide {
+  display: none;
+}

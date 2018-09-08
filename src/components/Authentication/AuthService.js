@@ -1,24 +1,8 @@
 import decode from 'jwt-decode'
 
 class AuthService {
-  constructor (domain) {
-    this.domain = domain || 'http://127.0.0.1:3000'
-
-    this.login = this.login.bind(this)
+  constructor () {
     this.getProfile = this.getProfile.bind(this)
-    this.fetch = this.fetch.bind(this)
-  }
-
-  login (email, password) {
-    return this.fetch(`${this.domain}/login`, {
-      method: 'POST',
-      body: JSON.stringify({
-        email, password
-      })
-    }).then(res => {
-      this.setToken(res.token)
-      return Promise.resolve(res)
-    })
   }
 
   loggedIn () {
@@ -56,27 +40,6 @@ class AuthService {
     return decode(this.getToken())
   }
 
-  fetch (url, options) {
-    // performs api calls sending the required authentication headers
-    const headers = {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-    }
-
-    // Setting Authorization header
-    // Authorization: Bearer xxxxxxx.xxxxxxxx.xxxxxx
-    if (this.loggedIn()) {
-      headers['Authorization'] = 'Bearer ' + this.getToken()
-    }
-
-    return fetch(url, {
-      headers,
-      ...options
-    })
-      .then(this._checkStatus)
-      .then(response => response.json())
-  }
-
   _checkStatus (response) {
     if (response.status >= 200 && response.status < 300) {
       return response
@@ -88,5 +51,5 @@ class AuthService {
   }
 }
 
-const authService = new AuthService('http://127.0.0.1:3000')
+const authService = new AuthService()
 export default authService

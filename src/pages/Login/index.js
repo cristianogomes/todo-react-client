@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import TaskApi from '../../services/TaskApi'
 import AuthService from '../../components/Authentication/AuthService'
 
 class Login extends Component {
@@ -8,6 +9,15 @@ class Login extends Component {
     /* bnd */
     this.handleChange = this.handleChange.bind(this)
     this.handleFormSubmit = this.handleFormSubmit.bind(this)
+  }
+
+  async login (email, password) {
+    const response = await TaskApi.login({email, password})
+    if (response && response.status === 200) {
+      AuthService.setToken(response.data.token)
+    }
+
+    return response
   }
 
   componentWillMount () {
@@ -22,14 +32,14 @@ class Login extends Component {
     })
   }
 
-  handleFormSubmit (e) {
+  async handleFormSubmit (e) {
     e.preventDefault()
 
-    AuthService.login(this.state.email, this.state.password).then(res => {
+    const retorno = await this.login(this.state.email, this.state.password)
+
+    if (retorno && retorno.status === 200) {
       this.props.history.replace('/')
-    }).catch(err => {
-      console.log(err)
-    })
+    }
   }
 
   render () {
