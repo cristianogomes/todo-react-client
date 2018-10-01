@@ -5,8 +5,8 @@ import TaskCard from '../../components/TaskCard'
 import TaskApi from '../../services/TaskApi'
 
 class Home extends React.Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
 
     this.state = {}
   }

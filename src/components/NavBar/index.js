@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import {withRouter} from 'react-router-dom'
-import AuthService from '../Authentication/AuthService'
-import withAuth from '../Authentication/withAuth'
-
-import './nav-bar.css'
+import AuthService from '../../services/Authentication/AuthService'
+import withAuth from '../../services/Authentication/withAuth'
 
 class NavBar extends Component {
   handleLogout () {
@@ -13,15 +11,15 @@ class NavBar extends Component {
 
   render () {
     return (
-      <nav className='nav-bar'>
-        <a className='title' href='/'>ToDo Client</a>
+      <nav>
+        <a href='/'>ToDo Client</a>
 
-        <ul className='menu'>
-          <li className='item'>
-            <a className='link' href='/'>Bem-vindo {this.props.user.name}</a>
+        <ul>
+          <li>
+            <a href='/'>Bem-vindo {this.props.user.name}</a>
           </li>
-          <li className='item'>
-            <a className='link' href='/login' onClick={this.handleLogout.bind(this)}>Logout</a>
+          <li>
+            <a href='/login' onClick={this.handleLogout.bind(this)}>Logout</a>
           </li>
         </ul>
       </nav>

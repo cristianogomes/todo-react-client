@@ -7,7 +7,7 @@ class AuthService {
 
   loggedIn () {
     const token = this.getToken()
-    return !!token && !this.isTokenExpired(token)
+    return token && !this.isTokenExpired(token)
   }
 
   isTokenExpired (token) {
@@ -30,6 +30,18 @@ class AuthService {
 
   getToken () {
     return localStorage.getItem('id_token')
+  }
+
+  getAuthorizationHeaders () {
+    const config = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ' + this.getToken()
+      }
+    }
+
+    return config
   }
 
   logout () {

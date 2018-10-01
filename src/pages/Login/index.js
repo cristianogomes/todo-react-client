@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import TaskApi from '../../services/TaskApi'
-import AuthService from '../../components/Authentication/AuthService'
+import AuthService from '../../services/Authentication/AuthService'
 
 class Login extends Component {
   constructor () {
